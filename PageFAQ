@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ Projet de Facturation Electronique BESSE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #00477F;
+      --cream: #f0f6fc;
+      --gold: #04F06A;
+      --gold-light: #b3fad9;
+      --rust: #c0392b;
+      --card: #ffffff;
+      --border: #c2d9ee;
+      --shadow: rgba(0,71,127,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── HEADER ────────────────────────────────────── */
+    header {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(4,240,106,0.04) 40px,
+        rgba(4,240,106,0.04) 41px
+      );
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+    header h1 span { color: var(--gold); }
+    header p {
+      margin-top: 0.75rem;
+      font-weight: 300;
+      font-size: 1.05rem;
+      opacity: 0.75;
+      position: relative;
+    }
+    .header-notice {
+      margin-top: 0.4rem !important;
+      font-size: 0.82rem !important;
+      opacity: 0.55 !important;
+      font-style: italic;
+    }
+
+    /* ─── MAIN ──────────────────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    /* ─── BOUTONS ────────────────────────────────────── */
+    .btn-group {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.9rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--cream);
+      border-color: var(--ink);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .btn-primary.active {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .btn-secondary:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+
+    .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* ─── SECTION FAQ ────────────────────────────────── */
+    #faq-section {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    #faq-section.visible { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--gold-light);
+      padding-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--ink);
+    }
+
+    .last-update {
+      font-size: 0.78rem;
+      color: #888;
+      font-style: italic;
+    }
+
+    /* ─── TABLEAU ────────────────────────────────────── */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      font-size: 0.92rem;
+    }
+
+    thead tr {
+      background: var(--ink);
+      color: var(--cream);
+    }
+    thead th {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #eef5fb; }
+
+    tbody td {
+      padding: 1rem 1.25rem;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .date-badge {
+      display: inline-block;
+      background: var(--gold-light);
+      color: #016040;
+      font-size: 0.78rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .no-answer {
+      color: #aaa;
+      font-style: italic;
+      font-size: 0.88rem;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #999;
+    }
+    .empty-state svg { opacity: 0.3; margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto; }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.82rem;
+      color: #999;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>FAQ <span>Projet de Facturation Electronique BESSE</span></h1>
+  <p>Consultez les réponses existantes ou posez une nouvelle question</p>
+  <p class="header-notice">Une réponse vous sera fournie dans 48h maximum. Vous serez notifiés à chaque mise à jour.</p>
+</header>
+
+<main>
+  <div class="btn-group">
+    <button class="btn btn-primary" id="btn-show-faq" onclick="toggleFaq()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="1"/>
+        <path d="M9 12h6M9 16h4"/>
+      </svg>
+      <span id="btn-label">Voir les questions / réponses</span>
+    </button>
+
+    <!-- ══════════════════════════════════════════════════
+         REMPLACEZ l'href par votre URL Microsoft Forms
+         ══════════════════════════════════════════════════ -->
+    <a class="btn btn-secondary"
+       href="https://forms.office.com/VOTRE_URL_FORMS"
+       target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+      Poser une question
+    </a>
+  </div>
+
+  <section id="faq-section">
+    <div class="section-header">
+      <h2 class="section-title">Liste des Q/R des soumissionnaires</h2>
+      <span class="last-update" id="last-update"></span>
+    </div>
+    <div id="faq-container"></div>
+  </section>
+</main>
+
+<footer>
+  Données issues de SharePoint · Formulaire Microsoft Forms
+</footer>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║                    ZONE DE MISE À JOUR DES DONNÉES                      ║
+// ║                                                                          ║
+// ║  INSTRUCTIONS (à chaque mise à jour) :                                  ║
+// ║  1. Téléchargez votre faq.json depuis SharePoint                        ║
+// ║  2. Ouvrez-le dans un éditeur texte (ex: Notepad) et copiez le contenu  ║
+// ║  3. Remplacez TOUT ce qui se trouve entre les crochets [ ] ci-dessous   ║
+// ║  4. Sauvegardez le fichier et poussez-le sur GitHub                     ║
+// ║                                                                          ║
+// ║  Format attendu de chaque entrée dans le JSON :                         ║
+// ║  { "Question": "...", "Reponse": "...", "DateSoumission": "..." }       ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
+
+const FAQ_DATA = [{"Identifiant":2,"Question":"ffffffffffffffffff","Réponse":"xxxxxxxxxxxxxxxx","Date de soumission":"02/03/2026"},{"Identifiant":3,"Question":"hhhhhhhhhhhhhhhhhh","Réponse":"rrrrrrrrrrrrrrrr","Date de soumission":"28/02/2026"}];
+
+// ══════════════════════════════════════════════════════════════════════════
+// Noms des clés dans votre JSON — à modifier si vos colonnes ont un nom différent
+// ══════════════════════════════════════════════════════════════════════════
+const COLS = {
+  question: "Question",
+  reponse:  "Reponse",
+  date:     "Date de soumission"
+};
+
+// ══════════════════════════════════════════════════════════════════════════
+// NE PAS MODIFIER EN DESSOUS DE CETTE LIGNE
+// ══════════════════════════════════════════════════════════════════════════
+
+let faqVisible = false;
+
+function toggleFaq() {
+  const section = document.getElementById('faq-section');
+  const btn     = document.getElementById('btn-show-faq');
+  const label   = document.getElementById('btn-label');
+
+  faqVisible = !faqVisible;
+
+  if (faqVisible) {
+    section.classList.add('visible');
+    btn.classList.add('active');
+    label.textContent = 'Masquer les questions';
+    renderTable();
+  } else {
+    section.classList.remove('visible');
+    btn.classList.remove('active');
+    label.textContent = 'Voir les questions / réponses';
+  }
+}
+
+function renderTable() {
+  const container = document.getElementById('faq-container');
+  const items = FAQ_DATA;
+
+  document.getElementById('last-update').textContent =
+    'Dernière mise à jour : ' + new Date().toLocaleDateString('fr-FR', {
+      day: '2-digit', month: 'long', year: 'numeric'
+    });
+
+  if (!items || !items.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/>
+        </svg>
+        <p>Aucune question pour le moment.</p>
+      </div>`;
+    return;
+  }
+
+  const rows = items.map(function(item) {
+    const question = escHtml(item[COLS.question] || '—');
+    const reponse  = item[COLS.reponse] && item[COLS.reponse].trim() !== ''
+      ? escHtml(item[COLS.reponse])
+      : '<span class="no-answer">En attente de réponse</span>';
+    const rawDate  = item[COLS.date];
+    const date     = rawDate ? formatDate(rawDate) : '—';
+
+    return '<tr>'
+      + '<td>' + question + '</td>'
+      + '<td>' + reponse  + '</td>'
+      + '<td><span class="date-badge">' + date + '</span></td>'
+      + '</tr>';
+  }).join('');
+
+  container.innerHTML =
+    '<div class="table-wrapper">'
+    + '<table>'
+    + '<thead><tr>'
+    + '<th>Question</th>'
+    + '<th>Réponse</th>'
+    + '<th>Date de soumission</th>'
+    + '</tr></thead>'
+    + '<tbody>' + rows + '</tbody>'
+    + '</table>'
+    + '</div>';
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function formatDate(str) {
+  try {
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(str)) {
+      const parts = str.split('/');
+      return new Date(parts[2], parts[1] - 1, parts[0]).toLocaleDateString('fr-FR', {
+        day: '2-digit', month: 'short', year: 'numeric'
+      });
+    }
+    return new Date(str).toLocaleDateString('fr-FR', {
+      day: '2-digit', month: 'short', year: 'numeric'
+    });
+  } catch(e) { return str; }
+}
+</script>
+
+</body>
+</html>
